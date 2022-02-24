@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <LiveBanner></LiveBanner>
     <!--
     <img alt="Vue logo" src="../assets/logo.png">
     -->
@@ -10,14 +11,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-
+import LiveBanner from "@/components/LiveBanner";
 export default {
   name: 'HomeView',
   methods(){},
   components: {
-//    HelloWorld
+    LiveBanner
   }
 }
 </script>
