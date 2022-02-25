@@ -1,59 +1,37 @@
 <template>
-  <nav>
-    <ul>
-      <li>
-        <!--
-        <el-image style="baseline-shift: sub;"
-                  src="https://www.tusdasa.net/favicon.ico"
-                  fit="fit"
-        ></el-image>
-        -->
-      </li>
-      <li>
-        <router-link to="/">Home</router-link>
-      </li>
-      <li>
-        <router-link to="/about">About</router-link>
-      </li>
-      <li>
-        <router-link to="/room">Room</router-link>
-      </li>
-    </ul>
-  </nav>
+  <div class="h-6"></div>
+  <el-menu
+      :default-active="this.$routes"
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      router
+  >
+    <el-menu-item index="/">Home</el-menu-item>
+    <el-menu-item index="/about" >About</el-menu-item>
+    <el-menu-item index="/room">Room</el-menu-item>
+  </el-menu>
 </template>
 
-<script>
-export default {
-  name: "LiveRoomNav"
+<script >
+
+export default{
+  name:"LiveRoomNav",
+  data(){
+    return {
+
+    }
+  },
+  created:function(){
+  },
+  methods:{
+    getPath:()=>{
+    }
+  }
 }
+
+
+
 </script>
-
-<style scoped>
-nav {
-  height: 40px;
-  width: 100%;
-  margin: 5px auto 0 auto;
-  line-height: 40px;
-}
-
-nav ul{
-  list-style: none;
-  display: flow;
-}
-
-nav ul li{
-  float: left;
-  width: 200px;
-  height: 40px;
-  display: block;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
