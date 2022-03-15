@@ -5,7 +5,7 @@
         <div id="banner-live_player" class="banner-left-container" @click="openLiveRoom"></div>
         <!-- 排行 -->
         <div class="banner-right-container">
-          <div style="margin: 5px">
+          <div class="banner-right-shower-container">
             <a v-for="item in list" :key="item" style="display: block" href="#" @click="swichLiveRoom(item)">
               <el-image class="banner-shower" :src="url" :fit="fill"></el-image>
             </a>
@@ -22,7 +22,7 @@ export default {
       Livelayer:null,
       url:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
       fill:"fill",
-      list:[1,2,3,4,5]
+      list:[1,2,3,4,5,6,7,8]
     }
   },
   created() {
@@ -57,29 +57,38 @@ export default {
 
 <style scoped>
 .banner-container{
-  padding: 5px;
+  padding: 5px 0 5px 0;
   width: 100%;
   height: 780px;
   background-image: url("../assets/b3471af04d0b0af5417231c27c800ad64e168fe5.jpg");
+  display: flex;
 }
 #banner{
   width: 1600px;
   height: 760px;
+  display: flex;
   margin: 10px auto auto auto;
 }
 .banner-left-container{
   width: 1200px;
   height: 750px;
   margin: auto;
-  float: left;
+  display: flex;
   background-color: rgba(0,0,0,.4);
 }
 .banner-right-container{
   width: 380px;
-  height: 750px;
-  margin: 0 5px 0 5px;
-  float: right;
+  height: 755px;
+  margin-left: 5px;
+  display: flex;
   background-color: rgba(0,0,0,.4);
+  overflow: hidden;
+}
+.banner-right-shower-container{
+  margin: auto;
+  overflow: scroll;
+  height: 755px;
+  overflow-x: hidden;
 }
 .banner-shower{
   border-radius: 5px;

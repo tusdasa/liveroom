@@ -15,7 +15,7 @@
   </el-menu>
 </template>
 
-<script >
+<script>
 
 export default{
   name:"LiveRoomNav",
