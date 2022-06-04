@@ -5,36 +5,67 @@
         <div>
           <div class="live-room-left-header">
             <div class="live-room-avater">
-              <el-image :src="roominfo.avatar" fit="cover" style="border-radius: 100%;"></el-image>
+              <el-image
+                :src="roominfo.avatar"
+                fit="cover"
+                style="border-radius: 60px"
+              ></el-image>
             </div>
             <div class="live-room-description">
-              <h2 style="line-height: 80px; margin-left: 30px;">{{ roominfo.title }}</h2>
+              <h2 style="line-height: 80px; margin-left: 30px">
+                {{ roominfo.title }}
+              </h2>
             </div>
           </div>
         </div>
         <div class="live-room-left-body">
           <div id="live-room-player"></div>
         </div>
-        <div class="live-room-left-footer">
-
-        </div>
+        <div class="live-room-left-footer"></div>
       </div>
       <div class="live-room-right">
-        <div class="live-room-right-header">
-          排行榜
-        </div>
+        <div class="live-room-right-header">排行榜</div>
         <div class="live-room-right-body">
           <MessageItem v-for="item in messageList" :key="item" :msg="item" />
         </div>
         <div class="live-room-right-footer">
+          <el-popover
+            placement="top-start"
+            trigger="hover"
+          >
+            <template #reference>
+              <el-button round>Emoji</el-button>
+            </template>
+            <table>
+              <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+              </tr>
+              <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+              </tr>
+            </table>
+          </el-popover>
           <div>
-            表情
+            <el-input
+              style="width: 290px; height: 95px"
+              v-model="msg"
+              :rows="3"
+              type="textarea"
+              placeholder="Please input"
+            />
           </div>
-          <div>
-            <textarea style="width: 290px; height: 95px;" v-model="msg"></textarea>
-          </div>
-          <div style="width: 100%; height: 30px; margin: auto;">
-            <button style="display: flex; margin-left: 250px;" @click="sendTextMessage">Send</button>
+          <div style="width: 100%; height: 30px; margin: auto">
+            <el-button
+              style="display: flex; margin-left: 220px"
+              type="primary"
+              @click="sendTextMessage"
+              round
+              >发送</el-button
+            >
           </div>
         </div>
       </div>
@@ -42,84 +73,85 @@
   </div>
 </template>
 <script>
-import {userTestStore} from "@/store"
-import MessageItem from "@/components/MessageItem"
-import ImUtils from "@/utils/ImUtils"
+import { userTestStore } from "@/store";
+import MessageItem from "@/components/MessageItem";
+import ImUtils from "@/utils/ImUtils";
 import TIM from "tim-js-sdk/tim-js-friendship.js";
 
 //https://1400329073.vod2.myqcloud.com/ff439affvodcq1400329073/7a9b2b565285890804459281865/jlm6QRPE4WUA.mp4
 export default {
   name: "LiveRoom",
-  data(){
+  data() {
     return {
-      msg:"",
-      Livelayer:null,
-      messageList:[],
-      url:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      roominfo:{
-        "playerUriList":{
-          "mp4":"https://1400329073.vod2.myqcloud.com/ff439affvodcq1400329073/7a9b2b565285890804459281865/jlm6QRPE4WUA.mp4"
+      msg: "",
+      Livelayer: null,
+      messageList: [],
+      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      roominfo: {
+        playerUriList: {
+          mp4: "https://1400329073.vod2.myqcloud.com/ff439affvodcq1400329073/7a9b2b565285890804459281865/jlm6QRPE4WUA.mp4",
         },
-        "title":"111",
-        "avatar":"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+        title: "111",
+        avatar:
+          "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       },
-    }
+    };
   },
   created() {
-    console.log(userTestStore().userid)
-    this.roominfo.title = userTestStore().userid
-    userTestStore().$onAction(this.msgpros)
+    console.log(userTestStore().userid);
+    this.roominfo.title = userTestStore().userid;
+    userTestStore().$onAction(this.msgpros);
   },
   mounted() {
     this.Livelayer = new this.$DPlayer({
-      container: document.getElementById('live-room-player'),
+      container: document.getElementById("live-room-player"),
       autoplay: true,
-      lang:'zh-cn',
+      lang: "zh-cn",
       live: true,
-      hotkey:false,
+      hotkey: false,
       mutex: true,
       video: {
         url: this.roominfo.playerUriList.mp4,
-        type: 'mp4'
-      }});
+        type: "mp4",
+      },
+    });
   },
-  methods:{
-    msgpros: function(args){
+  methods: {
+    msgpros: function (args) {
       console.log(args.args[0][0]);
-      this.messageList.push(args.args[0][0])
-      this.messageList.unshift()
+      this.messageList.push(args.args[0][0]);
+      this.messageList.unshift();
     },
     sendTextMessage: function () {
-      console.log(this.msg)
-      if (this.msg.length >0){
-
+      console.log(this.msg);
+      if (this.msg.length > 0) {
         let message = ImUtils.tim.createTextMessage({
-          to: '@TGS#2INLQS5HE',
+          to: "@TGS#2INLQS5HE",
           conversationType: TIM.TYPES.CONV_GROUP,
           payload: {
-            text: this.msg
-          }
+            text: this.msg,
+          },
         });
 
-        let that = this
-        ImUtils.tim.sendMessage(message).then(function(imResponse) {
-          console.log(imResponse);
-          that.msg = ""
-          that.messageList.push(imResponse.data.message)
-          that.messageList.unshift()
-        }).catch(function(imError) {
-          console.warn('sendMessage error:', imError);
-        });
-
+        let that = this;
+        ImUtils.tim
+          .sendMessage(message)
+          .then(function (imResponse) {
+            console.log(imResponse);
+            that.msg = "";
+            that.messageList.push(imResponse.data.message);
+            that.messageList.unshift();
+          })
+          .catch(function (imError) {
+            console.warn("sendMessage error:", imError);
+          });
       }
-
-
-      }
+    },
   },
-  components:{
-    MessageItem
-  }
-}
+  components: {
+    MessageItem,
+  },
+};
 </script>
 
 <style scoped>
@@ -132,58 +164,58 @@ export default {
   padding: 20px 0;
 }
 /* 中心区域 */
-.live-room-main{
+.live-room-main {
   width: 1300px;
   height: 900px;
   margin-left: auto;
   margin-right: auto;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   display: flex;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
 /* 左浮动区 */
-.live-room-left{
+.live-room-left {
   width: 990px;
   height: 900px;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 /* 右浮动区 */
-.live-room-right{
+.live-room-right {
   width: 310px;
   height: 900px;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   margin-left: 10px;
 }
 /* 直播间标题区 */
-.live-room-left-header{
+.live-room-left-header {
   width: 980px;
   height: 85px;
   margin: 10px 10px 10px 10px;
   display: flex;
 }
-.live-room-avater{
+.live-room-avater {
   width: 100px;
   height: 84px;
   display: flex;
 }
-.live-room-description{
+.live-room-description {
   width: 860px;
   height: 84px;
   display: flex;
   margin-left: 10px;
 }
 
-.live-room-left-body{
+.live-room-left-body {
   width: 980px;
   height: 700px;
   display: flex;
   margin: auto;
 }
 
-.live-room-left-footer{
+.live-room-left-footer {
   width: 980px;
   height: 85px;
   background-color: #2c3e50;
@@ -191,29 +223,27 @@ export default {
   margin: 5px auto;
 }
 
-.live-room-right-header{
+.live-room-right-header {
   width: 300px;
   height: 120px;
   margin-top: 11px;
   background-color: antiquewhite;
 }
 
-.live-room-right-body{
+.live-room-right-body {
   width: 300px;
   height: 600px;
   overflow: scroll;
   overflow-x: hidden;
 }
 
-.live-room-right-footer{
+.live-room-right-footer {
   width: 300px;
   height: 150px;
-  background-color: aquamarine;
 }
-#live-room-player{
+#live-room-player {
   width: 100%;
   height: 100%;
-  margin:auto;
+  margin: auto;
 }
-
 </style>

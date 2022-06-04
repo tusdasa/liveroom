@@ -1553,6 +1553,11 @@
   resolved "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.0.12.tgz#7b57cce215ae9f37a86984633b3aa3d595aa5b46"
   integrity sha512-iO/4FIezHKXhiDBdKySCvJVh8/mZPxHpiQrTy+PXVqJZgpTPTdHy4q8GXulaY+UKEagdkBb0onxNQZ0LNiqVhw==
 
+"@vue/devtools-api@^6.1.0":
+  version "6.1.3"
+  resolved "https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.1.3.tgz#a44c52e8fa6d22f84db3abdcdd0be5135b7dd7cf"
+  integrity sha512-79InfO2xHv+WHIrH1bHXQUiQD/wMls9qBk6WVwGCbdwP7/3zINtvqPNMtmSHXsIKjvUAHc8L0ouOj6ZQQRmcXg==
+
 "@vue/reactivity-transform@3.2.31":
   version "3.2.31"
   resolved "https://registry.npmmirror.com/@vue/reactivity-transform/-/reactivity-transform-3.2.31.tgz#0f5b25c24e70edab2b613d5305c465b50fc00911"
@@ -4753,6 +4758,14 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   resolved "https://registry.npmmirror.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
+pinia@^2.0.12:
+  version "2.0.12"
+  resolved "https://registry.npmmirror.com/pinia/-/pinia-2.0.12.tgz#4c6f7f59cb41f56f20deee71c403e66d8d3c637d"
+  integrity sha512-tUeuYGFrLU5irmGyRAIxp35q1OTcZ8sKpGT4XkPeVcG35W4R6cfXDbCGexzmVqH5lTQJJTXXbNGutIu9yS5yew==
+  dependencies:
+    "@vue/devtools-api" "^6.1.0"
+    vue-demi "*"
+
 pkg-dir@^4.1.0:
   version "4.2.0"
   resolved "https://registry.npmmirror.com/pkg-dir/-/pkg-dir-4.2.0.tgz#f099133df7ede422e81d1d8448270eeb3e4261f3"
@@ -5839,10 +5852,10 @@ thunky@^1.0.2:
   resolved "https://registry.npmmirror.com/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
 
-tim-js-sdk@^2.16.3:
-  version "2.16.3"
-  resolved "https://registry.npmmirror.com/tim-js-sdk/-/tim-js-sdk-2.16.3.tgz#36c073cc04051c6f3d3596b6efaad4b6eb51cc58"
-  integrity sha512-HwnEvoaTpzNeBd0kGv5aM7FddoQYYeDxCf/C8NFMtLwxcsrE3yE85V8o0EeZ/MUb6fkd6d1bZ6Nrxii2oQnOhw==
+tim-js-sdk@^2.17.1:
+  version "2.17.1"
+  resolved "https://registry.npmmirror.com/tim-js-sdk/-/tim-js-sdk-2.17.1.tgz#2deec68a52592bdf3663460972d4e9868ee48b83"
+  integrity sha512-Or/hLRUNt6smyVujOH7Mxgj8y/bRsoKDKDutFtWwyz55guYv55DLUwbHqxprKbnjXzpLZUQ2T+6v6+iwZu4z1g==
 
 tim-upload-plugin@^1.0.4:
   version "1.0.4"
