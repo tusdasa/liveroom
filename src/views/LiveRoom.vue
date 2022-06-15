@@ -6,7 +6,7 @@
           <div class="live-room-left-header">
             <div class="live-room-avater">
               <el-image
-                :src="roominfo.avatar"
+                :src="roominfo.cover"
                 fit="cover"
                 style="border-radius: 60px"
               ></el-image>
@@ -77,6 +77,7 @@ import { userTestStore } from "@/store";
 import MessageItem from "@/components/MessageItem";
 import ImUtils from "@/utils/ImUtils";
 import TIM from "tim-js-sdk/tim-js-friendship.js";
+import {getLiveRoomProfile} from '@/utils/request'
 
 //https://1400329073.vod2.myqcloud.com/ff439affvodcq1400329073/7a9b2b565285890804459281865/jlm6QRPE4WUA.mp4
 export default {
@@ -86,14 +87,13 @@ export default {
       msg: "",
       Livelayer: null,
       messageList: [],
-      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       roominfo: {
-        playerUriList: {
-          mp4: "https://1400329073.vod2.myqcloud.com/ff439affvodcq1400329073/7a9b2b565285890804459281865/jlm6QRPE4WUA.mp4",
-        },
-        title: "111",
-        avatar:
-          "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+        category: 0,
+        cover: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+        playList: [],
+        profile: {},
+        roomId: 0,
+        title:''
       },
     };
   },
@@ -101,20 +101,9 @@ export default {
     console.log(userTestStore().userid);
     this.roominfo.title = userTestStore().userid;
     userTestStore().$onAction(this.msgpros);
+    this.getProfile();
   },
   mounted() {
-    this.Livelayer = new this.$DPlayer({
-      container: document.getElementById("live-room-player"),
-      autoplay: true,
-      lang: "zh-cn",
-      live: true,
-      hotkey: false,
-      mutex: true,
-      video: {
-        url: this.roominfo.playerUriList.mp4,
-        type: "mp4",
-      },
-    });
   },
   methods: {
     msgpros: function (args) {
@@ -126,7 +115,7 @@ export default {
       console.log(this.msg);
       if (this.msg.length > 0) {
         let message = ImUtils.tim.createTextMessage({
-          to: "@TGS#2INLQS5HE",
+          to: "@TGS#2SOX5COIK",
           conversationType: TIM.TYPES.CONV_GROUP,
           payload: {
             text: this.msg,
@@ -147,6 +136,38 @@ export default {
           });
       }
     },
+    getProfile: function () {
+      // console.log(this.$route.params.roomId)
+      getLiveRoomProfile(this.$route.params.roomId).then(
+          res => {
+            // console.log(res)
+            if (res.isSuccess){
+              this.roominfo = res.data
+              this.startPlay();
+            }
+          }
+      ).catch(
+          err => {
+            console.log(err)
+          }
+      )
+    },
+    startPlay: function () {
+      this.Livelayer = new this.$DPlayer({
+        container: document.getElementById("live-room-player"),
+        autoplay: true,
+        lang: "zh-cn",
+        live: true,
+        hotkey: false,
+        mutex: true,
+        video: {
+          url: this.roominfo.playList[0],
+          type: "flv",
+        },
+      });
+
+    }
+
   },
   components: {
     MessageItem,

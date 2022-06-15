@@ -1,7 +1,7 @@
 export function getToken(){
     let profile = getProfile();
     if (profile){
-        return profile.token
+        return "Bearer "+profile.token
     }else {
         return null
     }
@@ -22,7 +22,7 @@ export function getProfile(){
     if (new Date().getTime() - obj.created >= obj.expires){
         return null
     }else {
-        return obj
+        return obj.value
     }
 
 }

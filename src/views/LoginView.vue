@@ -32,8 +32,8 @@ export default {
   },
   data(){
     return {
-      phone: '15592165323',
-      password: '3988978349'
+      phone: '',
+      password: ''
     }
   },
   created() {

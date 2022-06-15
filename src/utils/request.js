@@ -84,3 +84,39 @@ export function getRoomList(page, size){
         })
     })
 }
+
+export function getTop5(){
+    return new Promise((resolve, reject)=>{
+        axios.get('/live/top',{
+            headers: {'Authorization': getToken()}
+        }).then(res =>{
+            resolve(heandleError(res))
+        }).catch(err=>{
+            reject(heandleData(false, err,null))
+        })
+    })
+}
+
+export function getLiveRoomProfile(roomId){
+    return new Promise((resolve, reject)=>{
+        axios.get('/live/profile/'+roomId,{
+            headers: {'Authorization': getToken()}
+        }).then(res =>{
+            resolve(heandleError(res))
+        }).catch(err=>{
+            reject(heandleData(false, err,null))
+        })
+    })
+}
+
+export function getImUserSig(){
+    return new Promise((resolve, reject)=>{
+        axios.get('/live/usersig',{
+            headers: {'Authorization': getToken()}
+        }).then(res =>{
+            resolve(heandleError(res))
+        }).catch(err=>{
+            reject(heandleData(false, err,null))
+        })
+    })
+}

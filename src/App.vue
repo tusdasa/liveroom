@@ -32,5 +32,6 @@ export default {
 */
 .nav{
   width: 100%;
+  min-width: 1600px;
 }
 </style>
