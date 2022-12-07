@@ -84,6 +84,7 @@ export default {
   name: "LiveRoom",
   data() {
     return {
+      roomId: 1000,
       msg: "",
       Livelayer: null,
       messageList: [],
@@ -98,6 +99,11 @@ export default {
     };
   },
   created() {
+    if (this.$route.params.id){
+      this.roomId = this.$route.params.id;
+    }else {
+      this.roomId = 1000;
+    }
     console.log(userTestStore().userid);
     this.roominfo.title = userTestStore().userid;
     userTestStore().$onAction(this.msgpros);
@@ -138,7 +144,7 @@ export default {
     },
     getProfile: function () {
       // console.log(this.$route.params.roomId)
-      getLiveRoomProfile(this.$route.params.roomId).then(
+      getLiveRoomProfile(this.roomId).then(
           res => {
             // console.log(res)
             if (res.isSuccess){

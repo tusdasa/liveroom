@@ -2,8 +2,8 @@ import TIM from 'tim-js-sdk/tim-js-friendship.js'
 import TIMUploadPlugin from 'tim-upload-plugin'
 import {userTestStore} from "@/store"
 
-import {getImUserSig} from '@/utils/request'
-import {getProfile} from '@/utils/profile'
+// import {getImUserSig} from '@/utils/request'
+// import {getProfile} from '@/utils/profile'
 
 let SDKINFO = {
     SDKAppID: 1400591282
@@ -33,21 +33,20 @@ tim.on(TIM.EVENT.MESSAGE_RECEIVED, function(event) {
 
 //profile.accountId;
 
-getImUserSig().then(res => {
-    let profile = getProfile();
-    console.log(profile.accountId);
-    tim.login({userID: profile.accountId, userSig: res.data}).then(function(imResponse) {
-        console.log(imResponse.data); // 登录成功
-        if (imResponse.data.repeatLogin === true) {
-            console.log(imResponse.data.errorInfo);
-        }
-    }).catch(function(imError) {
-        console.warn('login error:', imError); // 登录失败的相关信息
-    });
-
-}).catch(err=>{
-    console.log(err)
-})
+// getImUserSig().then(async res => {
+//     let profile = await getProfile();
+//     tim.login({userID: profile.accountId, userSig: res.data}).then(function (imResponse) {
+//         console.log(imResponse.data); // 登录成功
+//         if (imResponse.data.repeatLogin === true) {
+//             console.log(imResponse.data.errorInfo);
+//         }
+//     }).catch(function (imError) {
+//         console.warn('login error:', imError); // 登录失败的相关信息
+//     });
+//
+// }).catch(err=>{
+//     console.log(err)
+// })
 
 
 

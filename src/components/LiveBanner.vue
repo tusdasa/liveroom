@@ -2,14 +2,14 @@
     <div class="banner-container">
       <div id="banner">
         <!-- 播放器 -->
-        <div @click="openLiveRoom">
+        <div>
           <div id="banner-live_player" class="banner-left-container"></div>
         </div>
         <!-- 排行 -->
         <div class="banner-right-container">
           <div class="banner-right-shower-container">
             <a v-for="item in list" :key="item" style="display: flex;" href="#" @click="swichLiveRoom(item)">
-              <el-image class="banner-shower" :src="url" :fit="fill"></el-image>
+              <el-image class="banner-shower" :src="item.cover" :fit="fill"></el-image>
             </a>
           </div>
         </div>
@@ -46,7 +46,7 @@ export default {
   },
   methods:{
     swichLiveRoom:function(item){
-      console.log("swichLiveRoom = "+item)
+      this.Livelayer.video.src=item.playList[0]
       // this.Livelayer.switchVideo({
       //   url:"https://play.sctow.cn/live/live2.flv?txSecret=72bbaf9ca438c063f7fba8654072a56d&txTime=621361E7",
       //   type: 'flv'
@@ -66,10 +66,11 @@ export default {
           res => {
             if (res.isSuccess){
               that.list = res.data
-              console.log(that.list[0].playList[0])
-              that.startPlay();
-            }
+              if (that.list.length > 0){
+                that.startPlay();
+              }
 
+            }
           }
       ).catch(
           err => {

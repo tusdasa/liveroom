@@ -2,7 +2,7 @@ import axios from "axios";
 import {getToken} from "@/utils/profile"
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
-axios.defaults.baseURL="https://dev1.tusdasa.net"
+axios.defaults.baseURL="https://api.sctow.cn"
 
 function heandleData(isSuccess, msg, data){
     return {
@@ -73,50 +73,86 @@ export function userLogin(mobile, password){
     })
 }
 
-export function getRoomList(page, size){
-    return new Promise((resolve, reject)=>{
-        axios.get("/live/all?page="+page+"&size="+size,{
+export async function getRoomList(page, size){
+    return new Promise( (resolve, reject) => {
+        axios.get("/live/all?page=" + page + "&size=" + size, {
             headers: {'Authorization': getToken()}
-        }).then(res =>{
+        }).then(res => {
             resolve(heandleError(res))
-        }).catch(err=>{
-            reject(heandleData(false, err,null))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
         })
     })
 }
 
-export function getTop5(){
-    return new Promise((resolve, reject)=>{
-        axios.get('/live/top',{
+export async function getTop5(){
+    return new Promise( (resolve, reject) => {
+        axios.get('/live/top', {
             headers: {'Authorization': getToken()}
-        }).then(res =>{
+        }).then(res => {
             resolve(heandleError(res))
-        }).catch(err=>{
-            reject(heandleData(false, err,null))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
         })
     })
 }
 
 export function getLiveRoomProfile(roomId){
-    return new Promise((resolve, reject)=>{
-        axios.get('/live/profile/'+roomId,{
-            headers: {'Authorization': getToken()}
-        }).then(res =>{
+    return new Promise( (resolve, reject) => {
+        axios.get('/live/profile/' + roomId, {
+            headers: {'Authorization':  getToken()}
+        }).then(res => {
             resolve(heandleError(res))
-        }).catch(err=>{
-            reject(heandleData(false, err,null))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
         })
     })
 }
 
 export function getImUserSig(){
-    return new Promise((resolve, reject)=>{
-        axios.get('/live/usersig',{
-            headers: {'Authorization': getToken()}
-        }).then(res =>{
+    return new Promise( (resolve, reject) => {
+        axios.get('/live/usersig', {
+            headers: {'Authorization':  getToken()}
+        }).then(res => {
             resolve(heandleError(res))
-        }).catch(err=>{
-            reject(heandleData(false, err,null))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
+        })
+    })
+}
+
+export function getPushInfo(){
+    return new Promise( (resolve, reject) => {
+        axios.get('/live/pushinfo', {
+            headers: {'Authorization':  getToken()}
+        }).then(res => {
+            resolve(heandleError(res))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
+        })
+    })
+}
+
+export function destoryRoom(){
+    return new Promise( (resolve, reject) => {
+        axios.delete('/live/destroy', {
+            headers: {'Authorization':  getToken()}
+        }).then(res => {
+            resolve(heandleError(res))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
+        })
+    })
+}
+
+export function createRoom(){
+    return new Promise( (resolve, reject) => {
+        axios.delete('/live/create', {
+            headers: {'Authorization':  getToken()}
+        }).then(res => {
+            resolve(heandleError(res))
+        }).catch(err => {
+            reject(heandleData(false, err, null))
         })
     })
 }

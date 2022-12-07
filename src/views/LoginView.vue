@@ -18,17 +18,13 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import {userLogin} from '@/utils/request'
+import {userLogin,getImUserSig} from '@/utils/request'
 import { ElMessage } from 'element-plus'
 import {setProfile} from '@/utils/profile'
+import ImUtils from '@/utils/ImUtils'
 
 export default {
   setup(){
-    const phone = ref('');
-    const password = ref('');
-    console.log(phone)
-    console.log(password)
   },
   data(){
     return {
@@ -51,6 +47,22 @@ export default {
                 type: 'success',
               })
               setProfile(res.data)
+              console.log("登录",res.data)
+              const accountId =  res.data.accountId
+              getImUserSig().then(async res => {
+                console.log("usersign",res.data)
+                ImUtils.tim.login({userID: accountId, userSig: res.data}).then(function (imResponse) {
+                  if (imResponse.data.repeatLogin === true) {
+                    console.log(imResponse.data.errorInfo);
+                  }
+                }).catch(function (imError) {
+                  console.warn('login error:', imError); // 登录失败的相关信息
+                });
+
+              }).catch(err=>{
+                console.log(err)
+              })
+
               setInterval(function () {
                 that.$router.push("/");
               }, 100);

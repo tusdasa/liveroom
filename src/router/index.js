@@ -14,7 +14,7 @@ const routes = [
     component: () => import('../views/AboutView.vue')
   },
   {
-    path: '/room',
+    path: '/room/:id',
     name: 'LiveRoom',
     component: () => import('../views/LiveRoom.vue')
   },
@@ -27,6 +27,11 @@ const routes = [
     path: '/register',
     name: 'RegisterView',
     component: () => import('../views/RegisterView')
+  },
+  {
+    path: '/user',
+    name: 'UserCentralView',
+    component: () => import('../views/UserCentralView')
   }
 ]
 
@@ -36,29 +41,30 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( (to, from, next) => {
 
+  // console.log(to)
+  // console.log(from)
+  // //next()
   let profile = getProfile()
-
-  let islogin = profile != null;
-
-  console.log(profile);
-
-  if (islogin){
-    // 已经登录
-    if (to.path === "/register" || to.path === "/login"){
-      next("/");
-    }else {
-      next();
+  // console.log(profile)
+    let islogin = profile != null;
+    if (islogin) {
+        // 已经登录
+        if (to.path === "/register" || to.path === "/login") {
+          next("/");
+        } else {
+          next();
+        }
+    } else {
+        // 未登录
+        if (to.path === "/login" || to.path === "/register") {
+            next();
+        } else {
+            next("/login");
+        }
     }
-  }else {
-    // 未登录
-    if (to.path === "/login" || to.path === "/register"){
-      next();
-    }else {
-      next("/login");
-    }
-  }
+
 })
 
 
